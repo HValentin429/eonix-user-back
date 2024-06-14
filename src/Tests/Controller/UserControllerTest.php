@@ -52,16 +52,15 @@ class UserControllerTest extends WebTestCase
     public function testFindUser(): void
     {
         $userId = 1;
-        $expectedUser = new User_(); // Assuming User is your entity class
+        $expectedUser = new User_(); 
 
-        // Set properties for the expected user object
         $expectedUser->setFirstname('Valentin');
         $expectedUser->setLastname('Heeman');
 
         $this->userServiceMock->expects($this->once())
             ->method('findUserById')
             ->with($userId)
-            ->willReturn($expectedUser); // Return an instance of User, not an array
+            ->willReturn($expectedUser);
 
         $this->client->getContainer()->set(UserService::class, $this->userServiceMock);
 
@@ -72,7 +71,6 @@ class UserControllerTest extends WebTestCase
 
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
 
-        // Assuming your JSON response matches the properties of the User entity
         $this->assertEquals($expectedUser->getFirstname(), $responseData['firstname']);
         $this->assertEquals($expectedUser->getLastname(), $responseData['lastname']);
     }
